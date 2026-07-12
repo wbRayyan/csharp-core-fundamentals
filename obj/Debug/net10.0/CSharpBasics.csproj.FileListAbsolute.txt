@@ -1,0 +1,14 @@
+C:\Users\Laraib\Desktop\zero\CSharpBasics\bin\Debug\net10.0\CSharpBasics.exe
+C:\Users\Laraib\Desktop\zero\CSharpBasics\bin\Debug\net10.0\CSharpBasics.deps.json
+C:\Users\Laraib\Desktop\zero\CSharpBasics\bin\Debug\net10.0\CSharpBasics.runtimeconfig.json
+C:\Users\Laraib\Desktop\zero\CSharpBasics\bin\Debug\net10.0\CSharpBasics.dll
+C:\Users\Laraib\Desktop\zero\CSharpBasics\bin\Debug\net10.0\CSharpBasics.pdb
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.AssemblyInfoInputs.cache
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.AssemblyInfo.cs
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.csproj.CoreCompileInputs.cache
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.dll
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\refint\CSharpBasics.dll
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.pdb
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.genruntimeconfig.cache
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\ref\CSharpBasics.dll
