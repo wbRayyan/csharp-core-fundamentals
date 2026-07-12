@@ -12,3 +12,4 @@ C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\refint\CSharpBasics.
 C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.pdb
 C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.genruntimeconfig.cache
 C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\ref\CSharpBasics.dll
+C:\Users\Laraib\Desktop\zero\CSharpBasics\obj\Debug\net10.0\CSharpBasics.sourcelink.json
