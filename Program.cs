@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Globalization;
 
 // 1. User authentication and session setup
 Console.Clear();
 Console.WriteLine("================================================");
-Console.WriteLine("   WELCOME TO SUNDRI ENTERPRISE CALCULATOR V5   ");
+Console.WriteLine("   WELCOME TO SUNDRI ENTERPRISE CALCULATOR V6   ");
 Console.WriteLine("================================================");
 Console.WriteLine("\nPlease enter your name to access the core engine:");
 string? userName = Console.ReadLine();
@@ -52,35 +53,47 @@ while (keepRunning)
             cleanExpression = cleanExpression.Substring(1); // Strip explicit leading plus sign
         }
 
-        // 1. Tokenize numbers using operators as split delimiters
+        // 2. Tokenize numbers using operators as split delimiters
         char[] delimiters = { '+', '-' };
         string[] numbersText = cleanExpression.Split(delimiters);
 
-        // 2. Extract remaining operators sequentially from the stripped expression
-        char[] operators = cleanExpression.Where(c => c == '+' || c == '-').ToArray();
+        // 3. Extract remaining operators sequentially
+        char[] operatorsArray = cleanExpression.Where(c => c == '+' || c == '-').ToArray();
 
-        double totalSum = 0;
+        // 4. Data Structure Transformation: Move raw arrays into Dynamic Lists
+        List<double> numbersList = new List<double>();
+        List<char> operatorsList = new List<char>(operatorsArray);
+        
         bool isValid = true;
 
-        // Parse and validate the first numeric token as double (supports invariant culture for dots)
-        if (numbersText.Length > 0 && double.TryParse(numbersText[0], CultureInfo.InvariantCulture, out double firstNumber))
+        // Parse and populate the numbers list sequentially
+        foreach (string token in numbersText)
         {
-            // Apply negative sign mapping if a leading minus was stripped earlier
-            totalSum = isFirstNumberNegative ? -firstNumber : firstNumber;
-        }
-        else
-        {
-            isValid = false;
+            if (double.TryParse(token, CultureInfo.InvariantCulture, out double parsedNum))
+            {
+                numbersList.Add(parsedNum);
+            }
+            else
+            {
+                isValid = false;
+                break;
+            }
         }
 
-        // 3. Execution Loop: Compute remaining operations sequentially
-        for (int i = 0; i < operators.Length; i++)
+        double totalSum = 0;
+
+        // 5. Execution Block using Dynamic Data Structures
+        if (isValid && numbersList.Count > 0)
         {
-            char op = operators[i];
-            
-            // Fetch next token safely and parse as double
-            if (double.TryParse(numbersText[i + 1], CultureInfo.InvariantCulture, out double nextNumber))
+            // Apply negative sign mapping to the first number if a leading minus was stripped
+            totalSum = isFirstNumberNegative ? -numbersList[0] : numbersList[0];
+
+            // Compute remaining sequential operations
+            for (int i = 0; i < operatorsList.Count; i++)
             {
+                char op = operatorsList[i];
+                double nextNumber = numbersList[i + 1]; // Safely extract the adjacent token
+
                 if (op == '+')
                 {
                     totalSum += nextNumber;
@@ -90,12 +103,10 @@ while (keepRunning)
                     totalSum -= nextNumber;
                 }
             }
-            else
-            {
-                isValid = false;
-                Console.WriteLine($"\n[ERROR] Invalid number detected after '{op}'");
-                break;
-            }
+        }
+        else
+        {
+            isValid = false;
         }
 
         // Output formatting block based on evaluation status
