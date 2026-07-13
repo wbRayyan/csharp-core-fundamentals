@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Globalization;
 
-// 1. User authentication and session setup
+// 1. User se naam lena (Once)
 Console.Clear();
 Console.WriteLine("================================================");
-Console.WriteLine("   WELCOME TO SUNDRI ENTERPRISE CALCULATOR V5   ");
+Console.WriteLine("   WELCOME TO SUNDRI ENTERPRISE CALCULATOR V4   ");
 Console.WriteLine("================================================");
 Console.WriteLine("\nPlease enter your name to access the core engine:");
 string? userName = Console.ReadLine();
@@ -27,7 +26,7 @@ while (keepRunning)
     Console.WriteLine($" Session Active: {userName.ToUpper()}");
     Console.WriteLine("================================================");
 
-    Console.WriteLine("\nEnter expression (e.g., -9.5-9 or 10.2+20.5-5):");
+    Console.WriteLine("\nEnter expression with + and - (e.g., 10+20-5+3):");
     Console.Write("Expression: ");
     string? expression = Console.ReadLine();
 
@@ -37,49 +36,37 @@ while (keepRunning)
     }
     else
     {
-        // Sanitize input by removing all whitespaces
+        // Spaces saaf karna
         string cleanExpression = expression.Replace(" ", "");
 
-        // Edge Case Handling: Check if expression starts with a leading sign (+ or -)
-        bool isFirstNumberNegative = false;
-        if (cleanExpression.StartsWith("-"))
-        {
-            isFirstNumberNegative = true;
-            cleanExpression = cleanExpression.Substring(1); // Remove leading sign for smooth splitting
-        }
-        else if (cleanExpression.StartsWith("+"))
-        {
-            cleanExpression = cleanExpression.Substring(1); // Strip explicit leading plus sign
-        }
-
-        // 1. Tokenize numbers using operators as split delimiters
+        // 1. Pehle hum saare numbers alag kar lete hain
         char[] delimiters = { '+', '-' };
         string[] numbersText = cleanExpression.Split(delimiters);
 
-        // 2. Extract remaining operators sequentially from the stripped expression
+        // 2. Ab hum saare signs (operators) alag dhoondte hain
+        // Yeh line expression mein se sirf '+' aur '-' nikal legi
         char[] operators = cleanExpression.Where(c => c == '+' || c == '-').ToArray();
 
-        double totalSum = 0;
+        int totalSum = 0;
         bool isValid = true;
 
-        // Parse and validate the first numeric token as double (supports invariant culture for dots)
-        if (numbersText.Length > 0 && double.TryParse(numbersText[0], CultureInfo.InvariantCulture, out double firstNumber))
+        // Pehle number ko validation ke sath totalSum me bitha do
+        if (numbersText.Length > 0 && int.TryParse(numbersText[0], out int firstNumber))
         {
-            // Apply negative sign mapping if a leading minus was stripped earlier
-            totalSum = isFirstNumberNegative ? -firstNumber : firstNumber;
+            totalSum = firstNumber;
         }
         else
         {
             isValid = false;
         }
 
-        // 3. Execution Loop: Compute remaining operations sequentially
+        // 3. LOOP: Ab baqi ke saare numbers par unke signs ke mutabiq operation chalana
         for (int i = 0; i < operators.Length; i++)
         {
-            char op = operators[i];
+            char op = operators[i]; // Agla sign kaunsa hai?
             
-            // Fetch next token safely and parse as double
-            if (double.TryParse(numbersText[i + 1], CultureInfo.InvariantCulture, out double nextNumber))
+            // Us sign ke agay wala number uthao (isliye i + 1 use kiya)
+            if (int.TryParse(numbersText[i + 1], out int nextNumber))
             {
                 if (op == '+')
                 {
@@ -98,7 +85,6 @@ while (keepRunning)
             }
         }
 
-        // Output formatting block based on evaluation status
         if (isValid)
         {
             Console.WriteLine("\n------------------------------------------------");
